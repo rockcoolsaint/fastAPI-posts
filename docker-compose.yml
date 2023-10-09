@@ -1,0 +1,31 @@
+version: "3"
+services:
+  api:
+    build: .
+    depends_on:
+      - postgres
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env
+    # environment:
+    #   - DATABASE_HOSTNAME=postgress
+    #   - DATABASE_PORT=5432
+    #   - DATABASE_PASSWORD=password
+    #   - DATABASE_NAME=fastAPI
+    #   - DATABASE_USERNAME=postgres
+    #   - SECRET_KEY=secret_key
+    #   - ALGORITHM=HS256
+    #   - ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=fastAPI
+
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+volumes:
+  postgres-db:
